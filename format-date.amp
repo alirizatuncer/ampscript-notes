@@ -1,0 +1,124 @@
+%%[
+
+SET @customerId   = AttributeValue('CUSTOMER_ID')
+SET @emailAddress  = AttributeValue('EMAIL_ADDRESS')
+SET @languageCountry = AttributeValue('LANGUAGE_COUNTRY')
+
+SET @fname = 'Ali '
+SET @mname = 'Riza '
+SET @lname = 'TUNCER'
+
+/* Headers & Footers & Preheader */
+Set @copyname='POST_EVENT_SURVEY_201804_COPY' /* Enter your DE copy name */
+SET @pre_header = "TEXT2" /* Enter your prehaeder field in your copy DE */
+SET @campaign_type = "DRIVE" /* Enter your campaign type as "DRIVE" or "SPORT" */
+SET @email_type = "PROMO" /* Enter your email type as "PROMO" or "TRANS" */
+SET @footer_color= "LIGHT" /* Enter your footer color as "LIGHT" or "DARK" */
+SET @translations_content = Row(LookupRows(@copyname, 'LANGUAGE_COUNTRY', @languageCountry), 1)  
+
+SET @campaignliveorproof = "live" /* For live launch, write live, for proof launch and previews, write proof */
+SET @primarykey = Concat(@customerId, '_', __AdditionalEmailAttribute2, '_', jobid, '_', xtshortdate)
+
+/* When the langloc is not in the copy file */
+SET @translations_content_rows = LookupRows(@copyname, 'LANGUAGE_COUNTRY', @languageCountry)
+/* campaignliveorproof burada */
+IF @campaignliveorproof == "live" then
+ IF RowCount(@translations_content_rows) == 0 THEN
+  InsertDE('MASTER_ERROR_LOG', 'primarykey', @primarykey, 'subscriberKey', _subscriberkey, 'langloc', @languageCountry, 'campaignname', __AdditionalEmailAttribute2, 'deviceprefix', @deviceprefix, 'devicetype', @deviceType, 'sku', @skuOfCustomer, 'error', 'The langloc for this customer is not in the copy sheet.',  'date', now())
+  InsertDE('POST_EVENT_SURVEY_201804_error', 'primarykey', @primarykey, 'subscriberKey', _subscriberkey, 'langloc', @languageCountry, 'deviceprefix', @deviceprefix, 'devicetype', @deviceType, 'sku', @skuOfCustomer, 'error', 'The langloc for this customer is not in the copy sheet.',  'date', now())
+  RaiseError('The langloc for the customer is not in the copy sheet', true)
+ ELSE
+  SET @translations_content = Row(LookupRows(@copyname, 'LANGUAGE_COUNTRY', @languageCountry), 1)
+ ENDIF
+ENDIF
+ 
+SET @url = 'https://www.research.net/r/JYJD3BX'
+
+IF @fname == 'Ali ' THEN
+  SET @message = 'Merhaba Ali'
+  ELSE
+  SET @message = 'Merhaba Ziyaretci'
+ENDIF
+
+var @dateString, @timeString, @long, @short, @fullShortTime, @fullShortTimeFR, @fullLongTime, @generalShortTime, @generalLongTime, @monthDay, @roundTrip, @RFC1123, @sortable, @shortTime, @longTime, @universalSortable, @universalFull, @monthYear, @monthNumber, @monthShortName, @monthFullName, @dayNumber, @dayFullName, @hour, @minute, @seconds, @AMPM, @offsetHours, @offsetHoursMinutes
+
+set @dateString = now()
+set @timeString = "06:07:08.123 AM"
+
+set @long = Format(@dateString,"D", "Date")
+set @short = Format(@dateString,"d", "Date")
+set @fullShortTime = Format(@dateString,"f", "Date")
+set @fullShortTimeFR = ProperCase(Format(@dateString,"f", "Date","fr-FR"))
+set @fullLongTime = Format(@dateString,"F", "Date")
+set @generalShortTime = Format(@dateString,"g", "Date")
+set @generalLongTime = Format(@dateString,"G", "Date")
+set @monthDay = Format(@dateString,"M", "Date")
+set @roundTrip = Format(@dateString,"O", "Date")
+set @RFC1123 = Format(@dateString,"R", "Date")
+set @sortable = Format(@dateString,"s", "Date")
+set @shortTime = Format(@dateString,"t", "Date")
+set @longTime = Format(@dateString,"T", "Date")
+set @universalSortable = Format(@dateString,"u", "Date")
+set @universalFull = Format(@dateString,"U", "Date")
+set @monthYear = Format(@dateString,"Y", "Date")
+
+set @monthNumber = Format(@dateString,"MM","Date")
+set @monthShortName = Format(@dateString,"MMM","Date")
+set @monthFullName = Format(@dateString,"MMMM","Date")
+
+set @dayNumber = Format(@dateString,"dd","Date")
+set @dayShortName = Format(@dateString,"ddd","Date")
+set @dayFullName = Format(@dateString,"ddddd","Date")
+
+set @hour = Format(@timeString,"hh","Date")
+set @minute = Format(@timeString,"mm","Date")
+set @seconds = Format(@timeString, "ss","Date")
+set @AMPM = Format(@timeString,"tt","Date")
+set @offsetHours = Format(@dateString,"zz","Date")
+set @offsetHoursMinutes = Format(@dateString,"zzz","Date")
+
+
+]%%
+dateString: %%=v(@dateString)=%%
+<br><br>long: %%=v(@long)=%%
+<br>short: %%=v(@short)=%%
+<br>fullShortTime: %%=v(@fullShortTime)=%%
+<br>fullShortTimeFR: %%=v(@fullShortTimeFR)=%%
+<br>fullLongTime: %%=v(@fullLongTime)=%%
+<br>generalShortTime: %%=v(@generalShortTime)=%%
+<br>generalLongTime: %%=v(@generalLongTime)=%%
+<br>monthDay: %%=v(@monthDay)=%%
+<br>roundTrip: %%=v(@roundTrip)=%%
+<br>RFC1123: %%=v(@RFC1123)=%%
+<br>sortable: %%=v(@sortable)=%%
+<br>shortTime: %%=v(@shortTime)=%%
+<br>longTime: %%=v(@longTime)=%%
+<br>universalSortable: %%=v(@universalSortable)=%%
+<br>universalFull: %%=v(@universalFull)=%%
+<br>monthYear: %%=v(@monthYear)=%%
+<br><br>monthNumber: %%=v(@monthNumber)=%%
+<br>monthShortName: %%=v(@monthShortName)=%%
+<br>monthFullName: %%=v(@monthFullName)=%%
+<br>dayNumber: %%=v(@dayNumber)=%%
+<br>dayShortName: %%=v(@dayShortName)=%%
+<br>dayFullName: %%=v(@dayFullName)=%%
+<br><br>timeString: %%=v(@timeString)=%%
+<br>hour: %%=v(@hour)=%%
+<br>minute: %%=v(@minute)=%%
+<br>seconds: %%=v(@seconds)=%%
+<br>AMPM: %%=v(@AMPM)=%%
+<br>offsetHours: %%=v(@offsetHours)=%%
+<br>offsetHoursMinutes: %%=v(@offsetHoursMinutes)=%%
+ 
+TomTom
+<br>Bugün:<br>
+%%=now()=%%
+%%=v(@gun)=%%
+<br><br>
+<br><br>
+%%=V(@message)=%%
+<br><br>
+%%=v(@emailAddress)=%%
+<br>
+%%=CONCAT(@fname, @mname, @lname)=%%
+ 
