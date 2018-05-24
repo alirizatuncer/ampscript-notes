@@ -1,0 +1,45 @@
+%%[
+
+/* EXAMPLE ONE */
+SET @pl = "a|b|c|d|e"
+SET @prefArray = BuildRowSetFromString(@pl,"|")
+SET @rCount = RowCount(@prefArray)
+FOR @i = 1 TO @rCount DO
+ SET @ddd = Field(Row(@prefArray, @i),1)
+]%%
+ %%=V(@ddd)=%% <br>
+%%[
+NEXT @i
+
+/* EXAMPLE 2 */
+
+    for @i = 1 to 5 do
+    IF @break != 'true' THEN
+
+          OUTPUT(CONCAT('Loop # ', @i, '<br /><br />'))
+
+          if @i == 1 THEN
+
+             SET @break = 'true'
+
+          endif 
+    ENDIF
+    next @i
+
+/* EXAMPLE 3 */
+SET @RowCount = 10
+
+FOR @i = 1 to @RowCount DO
+
+  if mod(@i,2) == 0 then
+    outputline(concat("<br>i: ",@i))
+  endif
+
+NEXT @i
+]%%
+
+/*
+Thanks and respect to;
+Karma Tsering Dorjee
+Adam Spriggs
+*/
