@@ -1,0 +1,19 @@
+%%[
+
+Var @number, @numMod
+
+SET @number = 55 /* The number value which we will wonder is it even or odd :) */
+SET @modResult = Mod(@number,2)
+
+IF @modResult == 0 THEN
+   outputline(concat("<br>Your number ", @numnum , " is <b>Even</b>."))
+   ELSE
+   outputline(concat("<br>Your number ", @numnum , " is <b>Odd</b>."))
+ENDIF
+
+]%%
+
+/*
+Chill with your code.
+ART
+*/
