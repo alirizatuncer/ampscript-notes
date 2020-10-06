@@ -1,0 +1,8 @@
+%%[
+    set @createSfRecord = CreateSalesforceObject(
+    'k_Application__c', 4,
+    'Contact__c', "",
+    'k_Email__c', "",
+    'k_First_Name__c', "Ali Rıza",
+    'k_Last_Name__c', "Tuncer")
+]%%
