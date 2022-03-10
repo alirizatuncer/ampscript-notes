@@ -1,0 +1,9 @@
+%%[ 
+set @Country_ISO = AttributeValue("Country_ISO") 
+set @Subject = Lookup("Test Dynamic Email Translation","Subject","Country_ISO",@Country_ISO) 
+set @preheader = Lookup("Test Dynamic Email Translation","Preheader","Country_ISO",@Country_ISO) 
+set @Header_Image = Lookup("Test Dynamic Email Translation","Header Image","Country_ISO",@Country_ISO) 
+set @Header_Text = Lookup("Test Dynamic Email Translation","Header Text","Country_ISO",@Country_ISO) 
+set @CTA_Text = Lookup("Test Dynamic Email Translation","CTA Text","Country_ISO",@Country_ISO) 
+set @CTA_Link = Lookup("Test Dynamic Email Translation","CTA Link","Country_ISO",@Country_ISO) 
+]%%
